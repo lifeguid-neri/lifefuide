@@ -1,267 +1,73 @@
-<!DOCTYPE html>
-
-<html lang="he">
-
+<!doctype html>
+<html lang="he" dir="rtl">
 <head>
-
-  <meta charset="UTF-8" />
-
-  <title>Lifeguid</title>
-
-  <style>
-
-    body{margin:0;height:100vh;display:flex;justify-content:center;align-items:center;font-family:Arial;direction:rtl;text-align:center;background:#f3f4f6;}
-
-    .card{background:#fff;padding:40px;border-radius:20px;width:min(760px,92vw);box-shadow:0 10px 30px rgba(0,0,0,0.12);}
-
-    h1{margin:0 0 10px;font-size:48px;}
-
-    h2{margin:0 0 25px;font-size:28px;}
-
-    .buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
-
-    button{font-size:22px;padding:14px 22px;border-radius:14px;border:0;cursor:pointer;background:#2563eb;color:#fff;}
-
-    button:hover{opacity:0.9;}
-
-    #step2,#resultBox{display:none;}
-
-    #bigTitle{font-size:34px;font-weight:900;margin:0 0 12px;}
-
-    #bigTip{font-size:26px;font-weight:700;margin:0 0 12px;}
-
-    #bigWhy{font-size:18px;line-height:1.7;opacity:0.9;margin:0 0 18px;}
-
-    .again{background:#111827;font-size:18px;padding:12px 18px;border-radius:12px;}
-
-    .small{margin-top:14px;font-size:14px;opacity:0.6;}
-
-  </style>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LifeGuide</title>
+<style>
+body{margin:0;font-family:Arial;direction:rtl;background:#0b1220;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.card{background:#0f1b33;border:1px solid rgba(255,255,255,.15);padding:24px;border-radius:16px;width:min(820px,92vw);text-align:center}
+h1{margin:0 0 10px;font-size:40px}
+h2{margin:0 0 18px;font-size:22px;color:#c9d6f2}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+button{padding:12px 16px;border-radius:12px;border:0;cursor:pointer;font-size:18px;background:#2d6cdf;color:#fff}
+button:hover{opacity:.92}
+#result{margin-top:18px;font-size:22px;font-weight:700}
+#why{margin-top:10px;font-size:16px;line-height:1.7;color:#c9d6f2}
+.box{margin-top:18px;padding:14px;border-radius:14px;background:rgba(255,255,255,.06)}
+input{width:min(520px,90%);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.2);color:#fff;font-size:16px}
+.small{margin-top:12px;color:#9fb2da;font-size:12px}
+</style>
 </head>
-
 <body>
-
-  <div class="card">
-
-    <h1>Lifeguid</h1>
-
-
-
-    <div id="step1">
-
-      <h2>מה חשוב לך עכשיו?</h2>
-
-      <div class="buttons">
-
-        <button id="btnFun">כיף</button>
-
-        <button id="btnSport">תנועה</button>
-
-        <button id="btnRest">מנוחה</button>
-
-      </div>
-
-      <div class="small">Lifeguid v2</div>
-
-    </div>
-
-
-
-    <div id="step2">
-
-      <h2>כמה זמן יש לך?</h2>
-
-      <div class="buttons">
-
-        <button id="t5">5 דקות</button>
-
-        <button id="t15">15 דקות</button>
-
-        <button id="t30">30 דקות</button>
-
-      </div>
-
-      <button class="again" id="back">חזרה</button>
-
-    </div>
-
-
-
-    <div id="resultBox">
-
-      <p id="bigTitle"></p>
-
-      <p id="bigTip"></p>
-
-      <p id="bigWhy"></p>
-
-      <button class="again" id="reset">בחירה מחדש</button>
-
-    </div>
-
-  </div>
-
-
-
-  <script>
-
-    // משתנים
-
-    var chosenType = "";
-
-
-
-    // מעבר מסכים
-
-    function showStep2(){
-
-      document.getElementById("step1").style.display = "none";
-
-      document.getElementById("step2").style.display = "block";
-
-    }
-
-    function showStep1(){
-
-      document.getElementById("step2").style.display = "none";
-
-      document.getElementById("resultBox").style.display = "none";
-
-      document.getElementById("step1").style.display = "block";
-
-      chosenType = "";
-
-    }
-
-    function showResult(){
-
-      document.getElementById("step2").style.display = "none";
-
-      document.getElementById("resultBox").style.display = "block";
-
-    }
-
-
-
-    // בחירת סוג
-
-    document.getElementById("btnFun").addEventListener("click", function(){
-
-      chosenType = "fun"; showStep2();
-
-    });
-
-    document.getElementById("btnSport").addEventListener("click", function(){
-
-      chosenType = "sport"; showStep2();
-
-    });
-
-    document.getElementById("btnRest").addEventListener("click", function(){
-
-      chosenType = "rest"; showStep2();
-
-    });
-
-
-
-    // בחירת זמן
-
-    function pickTime(minutes){
-
-      showResult();
-
-
-
-      if(chosenType === "fun"){
-
-        document.getElementById("bigTitle").innerHTML = "כיף 😄 (" + minutes + " דקות)";
-
-        document.getElementById("bigTip").innerHTML =
-
-          (minutes===5) ? "בדיחה לחבר / משחק קצר 5 דק׳." :
-
-          (minutes===15) ? "משחק 10–15 דק׳ עם טיימר." :
-
-          "יצירה/משחק 25–30 דק׳ ואז הפסקה.";
-
-        document.getElementById("bigWhy").innerHTML =
-
-          "מדעית: פעילות כיפית יכולה לשחרר דופמין במוח (חומר שקשור להנאה ומוטיבציה). טיימר עוזר ליהנות בלי להיתקע שעות.";
-
-      }
-
-
-
-      if(chosenType === "sport"){
-
-        document.getElementById("bigTitle").innerHTML = "תנועה 💪 (" + minutes + " דקות)";
-
-        document.getElementById("bigTip").innerHTML =
-
-          (minutes===5) ? "20 קפיצות + 10 סקוואטים + מים." :
-
-          (minutes===15) ? "הליכה מהירה 10 דק׳ + מתיחות." :
-
-          "כדור/ריצה קלה 20 דק׳ + מתיחות.";
-
-        document.getElementById("bigWhy").innerHTML =
-
-          "מדעית: תנועה מעלה זרימת דם וחמצן למוח, ומשחררת אנדורפינים (מורידים לחץ). זה יכול לשפר ריכוז לזמן קצר אחרי הפעילות.";
-
-      }
-
-
-
-      if(chosenType === "rest"){
-
-        document.getElementById("bigTitle").innerHTML = "מנוחה 😌 (" + minutes + " דקות)";
-
-        document.getElementById("bigTip").innerHTML =
-
-          (minutes===5) ? "נשימה איטית: 4 שנ׳ שאיפה, 4 שנ׳ נשיפה, 5 פעמים." :
-
-          (minutes===15) ? "שקט בלי מסך + נשימה + לשחרר כתפיים." :
-
-          "20 דק׳ בלי מסך + מים + מחברת.";
-
-        document.getElementById("bigWhy").innerHTML =
-
-          "מדעית: נשימה איטית מפעילה מערכת עצבים מרגיעה, יכולה להוריד דופק ולהפחית לחץ—ומחזירה ריכוז.";
-
-      }
-
-    }
-
-
-
-    document.getElementById("t5").addEventListener("click", function(){ pickTime(5); });
-
-    document.getElementById("t15").addEventListener("click", function(){ pickTime(15); });
-
-    document.getElementById("t30").addEventListener("click", function(){ pickTime(30); });
-
-
-
-    // כפתורים תחתונים
-
-    document.getElementById("back").addEventListener("click", function(){
-
-      document.getElementById("step2").style.display = "none";
-
-      document.getElementById("step1").style.display = "block";
-
-      chosenType = "";
-
-    });
-
-    document.getElementById("reset").addEventListener("click", function(){ showStep1(); });
-
-  </script>
-
-</body>
-
-</html>
-
-                                                       
+<div class="card">
+<h1>LifeGuide</h1>
+<h2>מה חשוב לך עכשיו?</h2>
+
+<div class="row">
+<button onclick="pick('fun')">כיף</button>
+<button onclick="pick('sport')">תנועה</button>
+<button onclick="pick('rest')">מנוחה</button>
+</div>
+
+<div class="box">
+<div style="font-size:18px;margin-bottom:10px;">🧠 שאל את LifeGuide</div>
+<input id="userInput" placeholder="לדוגמה: אני עייף / עצבני / בודד / משועמם" />
+<div class="row" style="margin-top:10px;">
+<button onclick="sendMessage()">שלח</button>
+<button onclick="clearChat()">נקה</button>
+</div>
+<div id="chatAnswer" style="margin-top:12px;color:#c9d6f2;line-height:1.7;"></div>
+</div>
+
+<div id="result"></div>
+<div id="why"></div>
+
+<div class="small">LifeGuide v3</div>
+</div>
+
+<script>
+function pick(type){
+if(type==="fun"){
+document.getElementById("result").innerText = "כיף 😄: 10 דקות משהו קצר וכיפי.";
+document.getElementById("why").innerText =
+"מדעית: כיף קצר יכול לשחרר דופמין במוח (קשור להנאה ומוטיבציה). טיימר עוזר ליהנות בלי להיתקע הרבה זמן.";
+}
+if(type==="sport"){
+document.getElementById("result").innerText = "תנועה 💪: 10 דקות הליכה/כדור/תרגילים.";
+document.getElementById("why").innerText =
+"מדעית: תנועה מעלה זרימת דם וחמצן למוח ומשחררת אנדורפינים (מורידים לחץ). זה יכול לשפר ריכוז לזמן קצר אחרי פעילות.";
+}
+if(type==="rest"){
+document.getElementById("result").innerText = "מנוחה 😌: 3–5 דקות נשימה איטית בלי מסך.";
+document.getElementById("why").innerText =
+"מדעית: נשימה איטית מפעילה מערכת עצבים מרגיעה ויכולה להוריד דופק ולחץ, ולעזור למוח להתאפס.";
+}
+}
+
+function sendMessage(){
+var text = (document.getElementById("userInput").value || "").toLowerCase();
+var answer = "ספר לי עוד קצת, ואני אנסה לעזור.";
+
+if(text.includes("עייף")){
+answer = "עייפות: לפעמים
